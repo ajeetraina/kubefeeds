@@ -1,32 +1,32 @@
 main:
   - title: "Home"
-    url: /
+    url: /kubefeeds/
   - title: "Core"
-    url: /tags/core/
+    url: /kubefeeds/tags/core/
   - title: "Security"
-    url: /tags/security/
+    url: /kubefeeds/tags/security/
   - title: "Networking"
-    url: /tags/networking/
+    url: /kubefeeds/tags/networking/
   - title: "Storage"
-    url: /tags/storage/
+    url: /kubefeeds/tags/storage/
   - title: "Observability"
-    url: /tags/observability/
+    url: /kubefeeds/tags/observability/
   - title: "CI/CD"
-    url: /tags/cicd/
+    url: /kubefeeds/tags/cicd/
   - title: "AI & ML"
-    url: /tags/ai/
+    url: /kubefeeds/tags/ai/
   - title: "More"
-    url: /categories/
+    url: /kubefeeds/categories/
     children:
       - title: "GitOps"
-        url: /tags/gitops/
+        url: /kubefeeds/tags/gitops/
       - title: "Multi-cluster"
-        url: /tags/multicluster/
+        url: /kubefeeds/tags/multicluster/
       - title: "News"
-        url: /categories/news/
+        url: /kubefeeds/categories/news/
       - title: "Releases"
-        url: /categories/releases/
+        url: /kubefeeds/categories/releases/
       - title: "Community"
-        url: /categories/community/
+        url: /kubefeeds/categories/community/
       - title: "Twitter Feeds"
-        url: /twitter/
+        url: /kubefeeds/twitter/
