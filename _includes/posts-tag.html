@@ -1,0 +1,11 @@
+{% if include.taxonomy.size > 0 %}
+  {% assign tags_sorted = include.taxonomy | sort_natural %}
+{% else %}
+  {% assign tags_sorted = page.taxonomy %}
+{% endif %}
+
+<div class="entries-{{ include.type | default: 'list' }}">
+  {% for post in site.tags[tags_sorted] %}
+    {% include archive-single.html type=include.type %}
+  {% endfor %}
+</div>
