@@ -1,0 +1,9 @@
+# Jekyll dependencies
+gem 'github-pages'
+gem 'jekyll-include-cache'
+
+# Python dependencies for content generation
+requests>=2.28.0
+feedparser>=6.0.0
+beautifulsoup4>=4.11.0
+pyyaml>=6.0
