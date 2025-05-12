@@ -1,16 +1,20 @@
 # Site settings
 title: KubeFeeds
+subtitle: The Kubernetes Knowledge Hub
 description: >-
-  Automated Kubernetes blog posts and updates
-baseurl: ""
-url: "https://ajeetraina.github.io/kubefeeds"
+  Automated Kubernetes blog posts, news, and updates
+url: "https://ajeetraina.github.io"
+baseurl: "/kubefeeds"
 
 # Build settings
 remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+
 plugins:
   - jekyll-feed
   - jekyll-include-cache
   - jekyll-paginate
+  - jekyll-sitemap
+  - jekyll-gist
 
 # Theme settings
 minimal_mistakes_skin: "default"
@@ -20,6 +24,10 @@ author:
   name: "KubeFeeds Bot"
   bio: "Automated Kubernetes content generation and curation"
   location: "Cloud Native"
+  links:
+    - label: "GitHub"
+      icon: "fab fa-fw fa-github"
+      url: "https://github.com/ajeetraina/kubefeeds"
 
 # Outputting
 paginate: 5
@@ -35,6 +43,26 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: true
+      comments: false
       share: true
       related: true
+      show_date: true
+      toc: true
+      toc_label: "Contents"
+      toc_sticky: true
+
+header:
+  overlay_image: /assets/images/banner.png
+  caption: "KubeFeeds - Automated Kubernetes Content"
+
+# Include folders
+include:
+  - _pages
+
+# Archives
+category_archive:
+  type: liquid
+  path: /categories/
+tag_archive:
+  type: liquid
+  path: /tags/
