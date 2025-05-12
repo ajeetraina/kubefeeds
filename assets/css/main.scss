@@ -14,6 +14,7 @@ $kubernetes-blue: #326CE5;
 $kubernetes-dark-blue: #2B5493;
 $kubernetes-light-blue: #A1C2FA;
 $kubernetes-sky-blue: #E7F1FE;
+$kubernetes-very-light-blue: #F5F9FF;
 
 // Enhanced typography
 body {
@@ -330,6 +331,73 @@ body {
   font-weight: 400;
 }
 
+// Layout with sidebar
+.sidebar-and-content {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1.5em;
+}
+
+// Sidebar styles
+.sidebar {
+  flex: 0 0 250px;
+  padding-right: 2em;
+}
+
+.archive-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.sidebar-categories {
+  background-color: $kubernetes-very-light-blue;
+  border-radius: 8px;
+  padding: 1.5em;
+  margin-bottom: 2em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  
+  .sidebar-title {
+    color: $kubernetes-dark-blue;
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 0.8em;
+    padding-bottom: 0.5em;
+    border-bottom: 1px solid $kubernetes-light-blue;
+  }
+  
+  .category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5em 0;
+    
+    .category-item {
+      margin-bottom: 0.5em;
+      
+      a {
+        display: block;
+        padding: 0.5em 0.8em;
+        color: #505050;
+        text-decoration: none;
+        border-radius: 4px;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          background-color: $kubernetes-light-blue;
+          color: $kubernetes-dark-blue;
+          padding-left: 1em;
+        }
+        
+        i {
+          width: 20px;
+          margin-right: 0.5em;
+          color: $kubernetes-blue;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
+
 // Responsive adjustments
 @media (max-width: 768px) {
   .grid__wrapper {
@@ -342,5 +410,15 @@ body {
   
   .twitter-feeds .twitter-timeline-wrapper {
     width: 100%;
+  }
+  
+  .sidebar {
+    flex: 0 0 100%;
+    padding-right: 0;
+    margin-bottom: 2em;
+  }
+  
+  .sidebar-categories {
+    padding: 1em;
   }
 }
