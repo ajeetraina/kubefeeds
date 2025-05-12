@@ -398,6 +398,49 @@ body {
   }
 }
 
+// Improved code highlighting
+div.highlighter-rouge,
+figure.highlight {
+  position: relative;
+  margin-bottom: 1.5em;
+  font-family: Monaco, Consolas, "Lucida Console", monospace;
+  font-size: 0.85em;
+  line-height: 1.8;
+  border-radius: 4px;
+  background-color: #f8f9fa;
+}
+
+// YAML specific styling improvements
+.language-yaml .highlight {
+  background-color: #2e3440;
+  color: #eceff4;
+  border-radius: 6px;
+  margin: 1.5em 0;
+  padding: 1em;
+}
+
+.language-yaml .highlight .c { color: #81a1c1; }        /* Comment */
+.language-yaml .highlight .na { color: #8fbcbb; }       /* Names */
+.language-yaml .highlight .s { color: #a3be8c; }        /* String */
+.language-yaml .highlight .m { color: #b48ead; }        /* Number */
+.language-yaml .highlight .l { color: #81a1c1; }        /* Literal */
+.language-yaml .highlight .p { color: #eceff4; }        /* Punctuation */
+.language-yaml .highlight .w { color: #d8dee9; }        /* Text */
+.language-yaml .highlight .sd { color: #5e81ac; font-style: italic; } /* Doc String */
+
+.language-yaml .c1 { color: #616e88; font-style: italic; } /* Comment */
+.language-yaml .s1, .language-yaml .s2 { color: #a3be8c; }  /* Strings */
+.language-yaml .pi { color: #b48ead; }                     /* Property identifiers */
+
+.language-yaml pre.highlight {
+  padding: 1em;
+  overflow-x: auto;
+  border: none;
+  background-color: #2e3440;
+  margin: 0;
+  border-radius: 6px;
+}
+
 // Responsive adjustments
 @media (max-width: 768px) {
   .grid__wrapper {
