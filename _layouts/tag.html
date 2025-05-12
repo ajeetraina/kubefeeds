@@ -1,0 +1,13 @@
+---
+layout: categories-sidebar
+---
+
+{{ content }}
+
+<div class="entries-{{ page.entries_layout | default: 'list' }}">
+  {% assign tag = page.taxonomy %}
+  {% assign posts = site.tags[tag] %}
+  {% for post in posts %}
+    {% include archive-single.html type=page.entries_layout %}
+  {% endfor %}
+</div>
