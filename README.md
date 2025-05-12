@@ -13,6 +13,9 @@
   <a href="https://github.com/ajeetraina/kubefeeds/actions/workflows/generate-post.yml">
     <img src="https://github.com/ajeetraina/kubefeeds/actions/workflows/generate-post.yml/badge.svg" alt="Content Generation">
   </a>
+  <a href="https://github.com/ajeetraina/kubefeeds/actions/workflows/fetch-kubernetes-news.yml">
+    <img src="https://github.com/ajeetraina/kubefeeds/actions/workflows/fetch-kubernetes-news.yml/badge.svg" alt="News Fetching">
+  </a>
   <a href="https://github.com/ajeetraina/kubefeeds/blob/main/LICENSE">
     <img src="https://img.shields.io/github/license/ajeetraina/kubefeeds" alt="License">
   </a>
@@ -30,23 +33,27 @@ Powered by GitHub Pages with Jekyll and leveraging GitHub Actions for content ge
 - **Tutorials** - Step-by-step instructions for implementing features
 - **Tips** - Best practices and optimization techniques
 - **News & Updates** - Latest developments in the Kubernetes ecosystem
+- **Releases** - New versions of Kubernetes and related tools
 
 ## ? Why KubeFeeds?
 
-- **Always Fresh** - Regular content updates twice a week
+- **Always Fresh** - Regular content updates and real-time Kubernetes news
 - **Comprehensive Coverage** - From basics to advanced topics
 - **Practical Examples** - Real-world YAML configurations included
 - **Community-Oriented** - Open source and community-driven
+- **Auto-Curated** - Latest news, releases, and GitHub activities fetched automatically
 
 ## ? How It Works
 
 KubeFeeds employs a sophisticated automated publishing pipeline:
 
-1. Our intelligent content engine selects relevant Kubernetes topics
-2. Detailed, structured content is generated with practical examples
-3. Content is committed to the repository via GitHub Actions
-4. Jekyll builds and deploys the site to GitHub Pages
-5. New content is regularly pushed to your feed
+1. **Automated Content Generation**: Our intelligent engine selects relevant Kubernetes topics and creates detailed, structured content with practical examples
+
+2. **Real-time News Fetching**: We automatically collect the latest news, blog posts, and updates from official Kubernetes sources, cloud providers, and community contributors
+
+3. **GitHub Release Tracking**: The system monitors new releases of Kubernetes and popular ecosystem tools, keeping you informed of the latest versions
+
+4. **Automated Publishing**: Content is committed to the repository via GitHub Actions and Jekyll builds and deploys the site to GitHub Pages
 
 ## ? Visit Our Blog
 
@@ -57,6 +64,7 @@ Explore our content at [https://ajeetraina.github.io/kubefeeds/](https://ajeetra
 We welcome contributions! Here's how you can help improve KubeFeeds:
 
 - **Add Topics**: Expand our topic database in `scripts/generate_post.py`
+- **Add News Sources**: Add new sources to `scripts/fetch_kubernetes_news.py`
 - **Improve Templates**: Enhance our post templates with better structures
 - **Fix Issues**: Help address any bugs or improvements
 - **Share Content**: Spread the word about KubeFeeds
@@ -81,26 +89,29 @@ docker-compose up
 ```bash
 # Install dependencies
 bundle install
+pip install -r requirements.txt
 
 # Run Jekyll locally
 bundle exec jekyll serve
 ```
 
-### Generate a Post Manually
+### Generate Content Manually
 
 ```bash
-# Install Python dependencies
-pip install requests pyyaml
-
-# Generate a post
+# Generate a random topic post
 python scripts/generate_post.py
+
+# Fetch latest Kubernetes news
+python scripts/fetch_kubernetes_news.py
 ```
 
 ## ? Content Schedule
 
-New content is published automatically:
-- Every Monday at 12:00 UTC
-- Every Thursday at 12:00 UTC
+KubeFeeds publishes content on a regular schedule:
+
+- **Automated Topic Posts**: Every Monday and Thursday at 12:00 UTC
+- **Latest News & Updates**: Every 12 hours (twice daily)
+- **Manual Triggers**: Available through GitHub Actions workflows
 
 ## ? Connect With Us
 
