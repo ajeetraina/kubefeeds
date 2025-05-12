@@ -10,7 +10,7 @@ header:
   overlay_image: /assets/images/banner.png
   actions:
     - label: "<i class='fas fa-rss'></i> Latest News"
-      url: "/categories/news/"
+      url: "/kubefeeds/categories/news/"
     - label: "<i class='fas fa-code-branch'></i> GitHub"
       url: "https://github.com/ajeetraina/kubefeeds"
   caption: "Automated Kubernetes insights delivered to your feed"
@@ -29,63 +29,63 @@ intro:
       <div class="category-icon"><i class="fas fa-cube"></i></div>
       <h3>Core</h3>
       <p>Fundamentals, components, and architecture</p>
-      <a href="/tags/core/" class="btn btn--primary">Explore</a>
+      <a href="{{ site.baseurl }}/tags/core/" class="btn btn--primary">Explore</a>
     </div>
     
     <div class="category-card">
       <div class="category-icon"><i class="fas fa-shield-alt"></i></div>
       <h3>Security</h3>
       <p>RBAC, policies, and securing clusters</p>
-      <a href="/tags/security/" class="btn btn--primary">Explore</a>
+      <a href="{{ site.baseurl }}/tags/security/" class="btn btn--primary">Explore</a>
     </div>
     
     <div class="category-card">
       <div class="category-icon"><i class="fas fa-network-wired"></i></div>
       <h3>Networking</h3>
       <p>CNI, services, ingress, and service mesh</p>
-      <a href="/tags/networking/" class="btn btn--primary">Explore</a>
+      <a href="{{ site.baseurl }}/tags/networking/" class="btn btn--primary">Explore</a>
     </div>
     
     <div class="category-card">
       <div class="category-icon"><i class="fas fa-database"></i></div>
       <h3>Storage</h3>
       <p>PVs, PVCs, StorageClasses, and CSI</p>
-      <a href="/tags/storage/" class="btn btn--primary">Explore</a>
+      <a href="{{ site.baseurl }}/tags/storage/" class="btn btn--primary">Explore</a>
     </div>
     
     <div class="category-card">
       <div class="category-icon"><i class="fas fa-chart-line"></i></div>
       <h3>Observability</h3>
       <p>Monitoring, logging, tracing, and metrics</p>
-      <a href="/tags/observability/" class="btn btn--primary">Explore</a>
+      <a href="{{ site.baseurl }}/tags/observability/" class="btn btn--primary">Explore</a>
     </div>
     
     <div class="category-card">
       <div class="category-icon"><i class="fas fa-sync-alt"></i></div>
       <h3>CI/CD</h3>
       <p>Continuous integration and delivery pipelines</p>
-      <a href="/tags/cicd/" class="btn btn--primary">Explore</a>
+      <a href="{{ site.baseurl }}/tags/cicd/" class="btn btn--primary">Explore</a>
     </div>
     
     <div class="category-card">
       <div class="category-icon"><i class="fas fa-code-branch"></i></div>
       <h3>GitOps</h3>
       <p>Git-based operations and infrastructure</p>
-      <a href="/tags/gitops/" class="btn btn--primary">Explore</a>
+      <a href="{{ site.baseurl }}/tags/gitops/" class="btn btn--primary">Explore</a>
     </div>
     
     <div class="category-card">
       <div class="category-icon"><i class="fas fa-server"></i></div>
       <h3>Multi-cluster</h3>
       <p>Managing multiple Kubernetes clusters</p>
-      <a href="/tags/multicluster/" class="btn btn--primary">Explore</a>
+      <a href="{{ site.baseurl }}/tags/multicluster/" class="btn btn--primary">Explore</a>
     </div>
     
     <div class="category-card">
       <div class="category-icon"><i class="fas fa-brain"></i></div>
       <h3>AI & ML</h3>
       <p>Machine learning workloads on Kubernetes</p>
-      <a href="/tags/ai/" class="btn btn--primary">Explore</a>
+      <a href="{{ site.baseurl }}/tags/ai/" class="btn btn--primary">Explore</a>
     </div>
   </div>
 </div>
@@ -99,7 +99,7 @@ intro:
       {% include archive-single.html type="grid" %}
     {% endfor %}
   </div>
-  <p class="view-all-link"><a href="/categories/news/" class="btn btn--primary">View All News <i class="fas fa-arrow-right"></i></a></p>
+  <p class="view-all-link"><a href="{{ site.baseurl }}/categories/news/" class="btn btn--primary">View All News <i class="fas fa-arrow-right"></i></a></p>
 </div>
 
 <!-- Latest Releases Section -->
@@ -111,7 +111,7 @@ intro:
       {% include archive-single.html type="grid" %}
     {% endfor %}
   </div>
-  <p class="view-all-link"><a href="/categories/releases/" class="btn btn--primary">View All Releases <i class="fas fa-arrow-right"></i></a></p>
+  <p class="view-all-link"><a href="{{ site.baseurl }}/categories/releases/" class="btn btn--primary">View All Releases <i class="fas fa-arrow-right"></i></a></p>
 </div>
 
 <!-- Twitter Feed Section -->
@@ -123,7 +123,7 @@ intro:
       <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
   </div>
-  <p class="view-all-link"><a href="/twitter/" class="btn btn--primary">View All Twitter Feeds <i class="fas fa-arrow-right"></i></a></p>
+  <p class="view-all-link"><a href="{{ site.baseurl }}/twitter/" class="btn btn--primary">View All Twitter Feeds <i class="fas fa-arrow-right"></i></a></p>
 </div>
 
 <style>
