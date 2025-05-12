@@ -1,0 +1,39 @@
+---
+layout: default
+---
+
+{% if page.header.overlay_color or page.header.overlay_image or page.header.image %}
+  {% include page__hero.html %}
+{% elsif page.header.video.id and page.header.video.provider %}
+  {% include page__hero_video.html %}
+{% endif %}
+
+{% if page.url != "/" and site.breadcrumbs %}
+  {% unless paginator %}
+    {% include breadcrumbs.html %}
+  {% endunless %}
+{% endif %}
+
+<div id="main" role="main">
+  <div class="sidebar-and-content">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      {% include sidebar-categories.html %}
+    </aside>
+    
+    <!-- Main Content -->
+    <div class="archive-content">
+      {% unless page.header.overlay_color or page.header.overlay_image %}
+        <h1 id="page-title" class="page__title">{{ page.title }}</h1>
+      {% endunless %}
+
+      {{ content }}
+
+      <div class="entries-{{ page.entries_layout | default: 'list' }}">
+        {% include documents-collection.html collection=page.collection sort_by=page.sort_by sort_order=page.sort_order type=page.entries_layout %}
+      </div>
+      
+      {% include paginator.html %}
+    </div>
+  </div>
+</div>
