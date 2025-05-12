@@ -1,0 +1,36 @@
+{% if post.header.teaser %}
+  {% capture teaser %}{{ post.header.teaser }}{% endcapture %}
+{% else %}
+  {% assign teaser = site.teaser %}
+{% endif %}
+
+{% if post.id %}
+  {% assign title = post.title | markdownify | remove: "<p>" | remove: "</p>" %}
+{% else %}
+  {% assign title = post.title %}
+{% endif %}
+
+<div class="news-card">
+  <div class="news-card-content">
+    <h2 class="news-card-title">
+      <a href="{{ post.url | relative_url }}" rel="permalink">{{ title }}</a>
+    </h2>
+    
+    <div class="news-card-meta">
+      {% if post.date %}
+        <i class="far fa-calendar-alt" aria-hidden="true"></i> {{ post.date | date: "%B %-d, %Y" }}
+      {% endif %}
+      {% if post.read_time %}
+        <i class="far fa-clock" aria-hidden="true"></i> {% include read-time.html %}
+      {% endif %}
+    </div>
+    
+    {% if post.excerpt %}
+      <div class="news-card-excerpt">
+        {{ post.excerpt | markdownify | strip_html | truncate: 160 }}
+      </div>
+    {% endif %}
+    
+    <a href="{{ post.url | relative_url }}" class="btn btn--primary news-card-link">Read More</a>
+  </div>
+</div>
