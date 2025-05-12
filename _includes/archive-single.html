@@ -1,0 +1,72 @@
+{% if post.header.teaser %}
+  {% capture teaser %}{{ post.header.teaser }}{% endcapture %}
+{% else %}
+  {% assign teaser = site.teaser %}
+{% endif %}
+
+{% if post.id %}
+  {% assign title = post.title | markdownify | remove: "<p>" | remove: "</p>" %}
+{% else %}
+  {% assign title = post.title %}
+{% endif %}
+
+<div class="{{ include.type | default: 'list' }}__item">
+  <article class="archive-item">
+    {% if include.type == "grid" %}
+      <div class="archive-item-header">
+        {% if teaser %}
+          <div class="archive-item-teaser">
+            <img src="{{ teaser | relative_url }}" alt="">
+          </div>
+        {% endif %}
+        <h2 class="archive-item-title" itemprop="headline">
+          {% if post.link %}
+            <a href="{{ post.link }}">{{ title }}</a>
+            <a href="{{ post.url | relative_url }}" rel="permalink"><i class="fas fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
+          {% else %}
+            <a href="{{ post.url | relative_url }}" rel="permalink">{{ title }}</a>
+          {% endif %}
+        </h2>
+        <div class="archive-item-meta">
+          {% if post.date %}
+            <div class="archive-item-date">
+              <i class="far fa-calendar-alt" aria-hidden="true"></i> {{ post.date | date: "%B %-d, %Y" }}
+            </div>
+          {% endif %}
+          {% if post.read_time %}
+            <div class="archive-item-read-time">
+              <i class="far fa-clock" aria-hidden="true"></i> {% include read-time.html %}
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    {% else %}
+      <h2 class="archive-item-title" itemprop="headline">
+        {% if post.link %}
+          <a href="{{ post.link }}">{{ title }}</a>
+          <a href="{{ post.url | relative_url }}" rel="permalink"><i class="fas fa-link" aria-hidden="true" title="permalink"></i><span class="sr-only">Permalink</span></a>
+        {% else %}
+          <a href="{{ post.url | relative_url }}" rel="permalink">{{ title }}</a>
+        {% endif %}
+      </h2>
+      <div class="archive-item-meta">
+        {% if post.date %}
+          <div class="archive-item-date">
+            <i class="far fa-calendar-alt" aria-hidden="true"></i> {{ post.date | date: "%B %-d, %Y" }}
+          </div>
+        {% endif %}
+        {% if post.read_time %}
+          <div class="archive-item-read-time">
+            <i class="far fa-clock" aria-hidden="true"></i> {% include read-time.html %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+    <div class="archive-item-excerpt" itemprop="description">
+      {{ post.excerpt | markdownify | strip_html | truncate: 200 }}
+    </div>
+    <div class="archive-item-more">
+      <a href="{{ post.url | relative_url }}" class="btn btn--primary">Read More</a>
+    </div>
+  </article>
+</div>
