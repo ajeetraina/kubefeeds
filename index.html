@@ -1,17 +1,126 @@
 ---
-layout: home
+layout: splash
 classes:
   - landing
   - dark-theme
-author_profile: true
-excerpt: "Automated Kubernetes insights delivered to your feed"
+excerpt: "Your automated source for everything Kubernetes"
 header:
   overlay_color: "#0d47a1"
   overlay_filter: "0.5"
   overlay_image: /assets/images/banner.png
   actions:
-    - label: "Explore Posts"
-      url: "/categories/"
-    - label: "GitHub"
+    - label: "<i class='fas fa-rss'></i> Latest News"
+      url: "/categories/news/"
+    - label: "<i class='fas fa-code-branch'></i> GitHub"
       url: "https://github.com/ajeetraina/kubefeeds"
+  caption: "Automated Kubernetes insights delivered to your feed"
+intro: 
+  - excerpt: 'KubeFeeds delivers the latest news, releases, and insights from the Kubernetes ecosystem - automatically curated and organized for your learning journey.'
+feature_row:
+  - image_path: /assets/images/categories/core.jpg
+    alt: "Kubernetes Core"
+    title: "Core Kubernetes"
+    excerpt: "Fundamentals, architecture, and key components of Kubernetes"
+    url: "/tags/core/"
+    btn_label: "Learn More"
+    btn_class: "btn--primary"
+  - image_path: /assets/images/categories/security.jpg
+    alt: "Kubernetes Security"
+    title: "Security"
+    excerpt: "Best practices, tools, and guides for securing your Kubernetes clusters"
+    url: "/tags/security/"
+    btn_label: "Learn More"
+    btn_class: "btn--primary"
+  - image_path: /assets/images/categories/networking.jpg
+    alt: "Kubernetes Networking"
+    title: "Networking"
+    excerpt: "Understanding Kubernetes networking, CNI, services, and ingress"
+    url: "/tags/networking/"
+    btn_label: "Learn More"
+    btn_class: "btn--primary"
+feature_row2:
+  - image_path: /assets/images/categories/storage.jpg
+    alt: "Kubernetes Storage"
+    title: "Storage"
+    excerpt: "PVs, PVCs, StorageClasses, CSI, and storage solutions"
+    url: "/tags/storage/"
+    btn_label: "Learn More"
+    btn_class: "btn--primary"
+  - image_path: /assets/images/categories/observability.jpg
+    alt: "Kubernetes Observability"
+    title: "Observability"
+    excerpt: "Monitoring, logging, tracing, and metrics for Kubernetes"
+    url: "/tags/observability/"
+    btn_label: "Learn More"
+    btn_class: "btn--primary"
+  - image_path: /assets/images/categories/cicd.jpg
+    alt: "CI/CD for Kubernetes"
+    title: "CI/CD"
+    excerpt: "Continuous integration and delivery pipelines for Kubernetes"
+    url: "/tags/cicd/"
+    btn_label: "Learn More"
+    btn_class: "btn--primary"
+feature_row3:
+  - image_path: /assets/images/categories/gitops.jpg
+    alt: "GitOps"
+    title: "GitOps"
+    excerpt: "Git-based operations and declarative infrastructure"
+    url: "/tags/gitops/"
+    btn_label: "Learn More"
+    btn_class: "btn--primary"
+  - image_path: /assets/images/categories/multicluster.jpg
+    alt: "Multi-cluster"
+    title: "Multi-cluster"
+    excerpt: "Managing multiple Kubernetes clusters effectively"
+    url: "/tags/multicluster/"
+    btn_label: "Learn More"
+    btn_class: "btn--primary"
+  - image_path: /assets/images/categories/ai.jpg
+    alt: "AI & ML on Kubernetes"
+    title: "AI & ML"
+    excerpt: "Running AI and machine learning workloads on Kubernetes"
+    url: "/tags/ai/"
+    btn_label: "Learn More"
+    btn_class: "btn--primary"
+latestnews:
+  - excerpt: '## Latest from the Kubernetes Ecosystem'
 ---
+
+{% include feature_row id="intro" type="center" %}
+
+<div class="latest-feeds-container">
+  <h2 class="category-heading"><i class="fas fa-newspaper"></i> Latest News & Updates</h2>
+  <div class="grid__wrapper">
+    {% assign latest_posts = site.posts | where: "categories", "News" | slice: 0, 3 %}
+    {% for post in latest_posts %}
+      {% include archive-single.html type="grid" %}
+    {% endfor %}
+  </div>
+  <p class="view-all-link"><a href="/categories/news/" class="btn btn--primary">View All News <i class="fas fa-arrow-right"></i></a></p>
+</div>
+
+<div class="latest-feeds-container">
+  <h2 class="category-heading"><i class="fas fa-code-branch"></i> Recent Releases</h2>
+  <div class="grid__wrapper">
+    {% assign latest_releases = site.posts | where: "categories", "Releases" | slice: 0, 3 %}
+    {% for post in latest_releases %}
+      {% include archive-single.html type="grid" %}
+    {% endfor %}
+  </div>
+  <p class="view-all-link"><a href="/categories/releases/" class="btn btn--primary">View All Releases <i class="fas fa-arrow-right"></i></a></p>
+</div>
+
+<h2 class="category-heading"><i class="fas fa-book"></i> Kubernetes Knowledge Hub</h2>
+{% include feature_row %}
+{% include feature_row id="feature_row2" %}
+{% include feature_row id="feature_row3" %}
+
+<div class="twitter-feeds-container">
+  <h2 class="category-heading"><i class="fab fa-twitter"></i> Kubernetes Community</h2>
+  <div class="twitter-feeds">
+    <div class="twitter-timeline-wrapper">
+      <a class="twitter-timeline" data-height="600" data-theme="light" href="https://twitter.com/kubernetesio?ref_src=twsrc%5Etfw">Tweets by @kubernetesio</a>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+  </div>
+</div>
