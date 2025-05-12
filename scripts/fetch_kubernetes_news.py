@@ -34,23 +34,6 @@ SOURCES = {
             "url": "https://aws.amazon.com/blogs/containers/",
             "rss": "https://aws.amazon.com/blogs/containers/feed/",
             "type": "vendor"
-        },
-        {
-            "name": "Microsoft AKS Blog",
-            "url": "https://techcommunity.microsoft.com/t5/azure-kubernetes-service-aks/bg-p/AzureKubernetesServiceBlog",
-            "type": "vendor"
-        },
-        {
-            "name": "Red Hat OpenShift Blog",
-            "url": "https://www.openshift.com/blog",
-            "rss": "https://www.openshift.com/blog/feed",
-            "type": "vendor"
-        },
-        {
-            "name": "Kubernetes Podcast",
-            "url": "https://kubernetespodcast.com/",
-            "rss": "https://kubernetespodcast.com/feeds/audio.xml",
-            "type": "community"
         }
     ],
     "github": [
@@ -68,55 +51,6 @@ SOURCES = {
             "name": "Istio",
             "repo": "istio/istio",
             "type": "ecosystem"
-        },
-        {
-            "name": "Argo CD",
-            "repo": "argoproj/argo-cd",
-            "type": "ecosystem"
-        },
-        {
-            "name": "Prometheus",
-            "repo": "prometheus/prometheus",
-            "type": "ecosystem"
-        },
-        {
-            "name": "Knative",
-            "repo": "knative/serving",
-            "type": "ecosystem"
-        }
-    ],
-    "community": [
-        {
-            "name": "Kubernetes Slack",
-            "url": "https://kubernetes.slack.com/",
-            "type": "community"
-        },
-        {
-            "name": "Kubernetes Forums",
-            "url": "https://discuss.kubernetes.io/",
-            "type": "community"
-        },
-        {
-            "name": "CNCF Calendar",
-            "url": "https://www.cncf.io/calendar/",
-            "type": "events"
-        },
-        {
-            "name": "KubeCon + CloudNativeCon",
-            "url": "https://www.cncf.io/kubecon-cloudnativecon-events/",
-            "type": "events"
-        }
-    ],
-    "documentation": [
-        {
-            "name": "Kubernetes Docs",
-            "url": "https://kubernetes.io/docs/",
-            "type": "official"
-        },
-        {
-            "name": "Kubernetes GitHub Issues",
-            "url": "https://github.com/kubernetes/kubernetes/issues",
-            "type": "official"
         }
     ]
 }
@@ -198,9 +132,7 @@ def scrape_blog(url, limit=5):
         
         # Look for common blog post patterns
         articles = soup.find_all('article') or \
-                  soup.find_all('div', class_=re.compile(r'post|article|blog-item')) or \
-                  soup.find_all('div', class_=re.compile(r'entry')) or \
-                  soup.select('.post, .article, .blog-entry')
+                  soup.find_all('div', class_=re.compile(r'post|article|blog-item'))
         
         for article in articles[:limit]:
             # Try to find title
@@ -227,13 +159,12 @@ def scrape_blog(url, limit=5):
             
             # Try to find date
             date_elem = article.find('time') or \
-                       article.find('span', class_=re.compile(r'date|time|published')) or \
-                       article.find('div', class_=re.compile(r'date|time|published'))
+                       article.find('span', class_=re.compile(r'date|time|published'))
             
             date = date_elem.text.strip() if date_elem else ''
             
             # Try to find summary
-            summary_elem = article.find('p') or article.find('div', class_=re.compile(r'summary|excerpt|description'))
+            summary_elem = article.find('p')
             summary = summary_elem.text.strip() if summary_elem else ''
             
             posts.append({
@@ -247,3 +178,136 @@ def scrape_blog(url, limit=5):
     except Exception as e:
         print(f"Error scraping {url}: {e}")
         return []
+
+# Generate a news post from the collected blog posts
+def generate_news_post(blog_posts):
+    today = datetime.datetime.now().strftime('%Y-%m-%d')
+    filename = f"{today}-kubernetes-latest-news.md"
+    
+    content = f"---\ntitle: \"Latest Kubernetes News and Updates\"\ndate: {today}\ncategories:\n  - News\ntags:\n  - kubernetes\n  - news\n  - updates\n---\n\n# Latest Kubernetes News and Updates\n\nStay informed with the latest news, tutorials, and updates from around the Kubernetes ecosystem. Here's a roundup of recent articles from official sources and community contributors.\n\n"
+    
+    # Group posts by source type
+    official_posts = [post for post in blog_posts if post['source_type'] == 'official']
+    vendor_posts = [post for post in blog_posts if post['source_type'] == 'vendor']
+    
+    # Add official posts
+    if official_posts:
+        content += "## Official Kubernetes Updates\n\n"
+        for post in official_posts[:5]:  # Limit to 5 posts
+            published = post.get('published', 'Recently')
+            summary = post.get('summary', '').strip()
+            if len(summary) > 200:
+                summary = summary[:200].strip() + "..."
+            
+            content += f"### [{post['title']}]({post['link']})\n\n"
+            content += f"*Published: {published} by {post['source']}*\n\n"
+            content += f"{summary}\n\n"
+            content += f"[Read more...]({post['link']})\n\n"
+    
+    # Add vendor posts
+    if vendor_posts:
+        content += "## Cloud Provider & Vendor Updates\n\n"
+        for post in vendor_posts[:5]:  # Limit to 5 posts
+            published = post.get('published', 'Recently')
+            summary = post.get('summary', '').strip()
+            if len(summary) > 200:
+                summary = summary[:200].strip() + "..."
+            
+            content += f"### [{post['title']}]({post['link']})\n\n"
+            content += f"*Published: {published} by {post['source']}*\n\n"
+            content += f"{summary}\n\n"
+            content += f"[Read more...]({post['link']})\n\n"
+    
+    content += "## Stay Connected\n\nFor more Kubernetes news, follow the [Kubernetes Blog](https://kubernetes.io/blog/) and join the community on [Slack](https://kubernetes.slack.com/)."
+    
+    return filename, content
+
+# Generate a post about GitHub releases
+def generate_releases_post(releases):
+    today = datetime.datetime.now().strftime('%Y-%m-%d')
+    filename = f"{today}-kubernetes-ecosystem-releases.md"
+    
+    content = f"---\ntitle: \"Latest Kubernetes Ecosystem Releases\"\ndate: {today}\ncategories:\n  - Releases\ntags:\n  - kubernetes\n  - releases\n  - github\n---\n\n# Latest Kubernetes Ecosystem Releases\n\nStay informed about the latest releases from the Kubernetes ecosystem. This post covers recent releases from core Kubernetes components and popular tools.\n\n"
+    
+    # Process each repository's releases
+    for repo_info in SOURCES['github']:
+        repo_releases = []
+        for release in releases:
+            if release.get('repo') == repo_info['repo']:
+                repo_releases.append(release)
+        
+        if repo_releases:
+            content += f"## {repo_info['name']} ({repo_info['repo']})\n\n"
+            
+            for release in repo_releases[:3]:  # Limit to 3 releases per repo
+                release_date = release['published_at'].split('T')[0] if 'T' in release['published_at'] else release['published_at']
+                release_notes = release.get('body', '').strip()
+                # Extract first 200 chars for summary
+                release_summary = release_notes[:200].strip()
+                if len(release_notes) > 200:
+                    release_summary += "..."
+                
+                content += f"### [{release['tag']}]({release['url']})\n\n"
+                content += f"*Released: {release_date}*\n\n"
+                content += f"{release_summary}\n\n"
+                content += f"[View full release notes]({release['url']})\n\n"
+    
+    content += "## Stay Updated\n\nFor more release information, follow the GitHub repositories of your favorite Kubernetes tools and components."
+    
+    return filename, content
+
+# Main function to generate blog posts from fetched content
+def main():
+    print("Fetching content from Kubernetes sources...")
+    
+    # Create posts directory if it doesn't exist
+    posts_dir = Path("_posts")
+    posts_dir.mkdir(exist_ok=True)
+    
+    # Fetch blog content
+    blog_posts = []
+    for blog in SOURCES['blogs']:
+        print(f"Fetching content from {blog['name']}...")
+        if 'rss' in blog:
+            posts = fetch_rss_feed(blog['rss'], 5)
+        else:
+            posts = scrape_blog(blog['url'], 5)
+        
+        for post in posts:
+            post['source'] = blog['name']
+            post['source_type'] = blog['type']
+            blog_posts.append(post)
+    
+    # Fetch GitHub releases
+    releases = []
+    for repo_info in SOURCES['github']:
+        print(f"Fetching releases from {repo_info['repo']}...")
+        repo_releases = fetch_github_releases(repo_info['repo'], 3)
+        for release in repo_releases:
+            releases.append({
+                'repo': repo_info['repo'],
+                'tag': release['tag_name'],
+                'url': release['html_url'],
+                'published_at': release['published_at'],
+                'body': release.get('body', ''),
+                'type': repo_info['type']
+            })
+    
+    # Generate news post
+    if blog_posts:
+        filename, content = generate_news_post(blog_posts)
+        post_path = posts_dir / filename
+        with open(post_path, 'w') as f:
+            f.write(content)
+        print(f"Generated blog post: {filename}")
+    
+    # Generate releases post
+    if releases:
+        filename, content = generate_releases_post(releases)
+        post_path = posts_dir / filename
+        with open(post_path, 'w') as f:
+            f.write(content)
+        print(f"Generated releases post: {filename}")
+
+if __name__ == "__main__":
+    main()
