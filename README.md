@@ -1,8 +1,5 @@
 # KubeFeeds
 
-Automated Kubernetes blog posts and updates.
-
-## About
 
 KubeFeeds is an official blogging site related to Kubernetes . The blog is powered by GitHub Pages with Jekyll and uses GitHub Actions.
 
