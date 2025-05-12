@@ -1,0 +1,19 @@
+<article class="news-item">
+  <h2 class="news-item-title">
+    <a href="{{ include.post.url | relative_url }}" rel="permalink">{{ include.post.title }}</a>
+  </h2>
+  <div class="news-item-meta">
+    <span class="news-item-date">
+      <i class="far fa-calendar-alt" aria-hidden="true"></i> {{ include.post.date | date: "%B %-d, %Y" }}
+    </span>
+    <span class="news-item-read-time">
+      <i class="far fa-clock" aria-hidden="true"></i> {% include read-time.html %}
+    </span>
+  </div>
+  <div class="news-item-excerpt">
+    {{ include.post.excerpt | markdownify | strip_html | truncate: 160 }}
+  </div>
+  <div class="news-item-more">
+    <a href="{{ include.post.url | relative_url }}" class="btn btn--primary">Read More</a>
+  </div>
+</article>
