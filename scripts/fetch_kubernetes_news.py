@@ -34,6 +34,29 @@ SOURCES = {
             "url": "https://aws.amazon.com/blogs/containers/",
             "rss": "https://aws.amazon.com/blogs/containers/feed/",
             "type": "vendor"
+        },
+        {
+            "name": "Microsoft AKS Blog",
+            "url": "https://techcommunity.microsoft.com/t5/azure-kubernetes-service-aks/bg-p/AzureKubernetesServiceBlog",
+            "type": "vendor"
+        },
+        {
+            "name": "Red Hat OpenShift Blog",
+            "url": "https://www.openshift.com/blog",
+            "rss": "https://www.openshift.com/blog/feed",
+            "type": "vendor"
+        },
+        {
+            "name": "Kubernetes Podcast",
+            "url": "https://kubernetespodcast.com/",
+            "rss": "https://kubernetespodcast.com/feeds/audio.xml",
+            "type": "community"
+        },
+        {
+            "name": "The New Stack",
+            "url": "https://thenewstack.io/category/kubernetes/",
+            "rss": "https://thenewstack.io/category/kubernetes/feed/",
+            "type": "community"
         }
     ],
     "github": [
@@ -51,8 +74,58 @@ SOURCES = {
             "name": "Istio",
             "repo": "istio/istio",
             "type": "ecosystem"
+        },
+        {
+            "name": "Argo CD",
+            "repo": "argoproj/argo-cd",
+            "type": "ecosystem"
+        },
+        {
+            "name": "Prometheus",
+            "repo": "prometheus/prometheus",
+            "type": "ecosystem"
+        },
+        {
+            "name": "Knative",
+            "repo": "knative/serving",
+            "type": "ecosystem"
+        }
+    ],
+    "twitter": [
+        {
+            "name": "Kubernetes",
+            "handle": "kubernetesio",
+            "type": "official"
+        },
+        {
+            "name": "The New Stack",
+            "handle": "thenewstack",
+            "type": "community"
+        },
+        {
+            "name": "KubeTools",
+            "handle": "kubetools",
+            "type": "tools"
+        },
+        {
+            "name": "CNCF",
+            "handle": "CloudNativeFdn",
+            "type": "official"
         }
     ]
+}
+
+# Categorization mapping to tag content
+CATEGORY_KEYWORDS = {
+    "core": ["architecture", "api", "components", "concepts", "kubectl", "cluster", "control plane", "pod", "deployment", "service"],
+    "security": ["security", "rbac", "policy", "psp", "authentication", "authorization", "encrypt", "secret", "cve", "vulnerability"],
+    "networking": ["network", "cni", "service mesh", "istio", "linkerd", "ingress", "egress", "traffic", "dns", "proxy"],
+    "storage": ["storage", "volume", "persistent", "pv", "pvc", "csi", "snapshot", "backup", "stateful"],
+    "observability": ["observability", "monitoring", "logging", "tracing", "metrics", "prometheus", "grafana", "jaeger", "elastic"],
+    "cicd": ["ci", "cd", "pipeline", "deployment", "continuous", "integration", "delivery", "jenkins", "tekton", "argocd"],
+    "gitops": ["gitops", "flux", "argocd", "git", "continuous delivery", "gitops tool"],
+    "multicluster": ["multi-cluster", "federation", "kubefed", "karmada", "cluster api", "cluster management"],
+    "ai": ["ai", "ml", "machine learning", "deep learning", "kubeflow", "inference", "training", "tensorflow", "pytorch"]
 }
 
 # GitHub API token (should be stored as an environment variable in production)
@@ -179,6 +252,23 @@ def scrape_blog(url, limit=5):
         print(f"Error scraping {url}: {e}")
         return []
 
+# Identify categories for the content based on keywords
+def identify_categories(title, content):
+    text = (title + " " + content).lower()
+    categories = []
+    
+    for category, keywords in CATEGORY_KEYWORDS.items():
+        for keyword in keywords:
+            if keyword.lower() in text:
+                categories.append(category)
+                break
+    
+    # If no specific category is detected, default to "core"
+    if not categories:
+        categories.append("core")
+    
+    return categories
+
 # Generate a news post from the collected blog posts
 def generate_news_post(blog_posts):
     today = datetime.datetime.now().strftime('%Y-%m-%d')
@@ -189,6 +279,7 @@ def generate_news_post(blog_posts):
     # Group posts by source type
     official_posts = [post for post in blog_posts if post['source_type'] == 'official']
     vendor_posts = [post for post in blog_posts if post['source_type'] == 'vendor']
+    community_posts = [post for post in blog_posts if post['source_type'] == 'community']
     
     # Add official posts
     if official_posts:
@@ -199,8 +290,12 @@ def generate_news_post(blog_posts):
             if len(summary) > 200:
                 summary = summary[:200].strip() + "..."
             
+            # Identify categories
+            categories = identify_categories(post['title'], summary)
+            category_tags = ", ".join([f"#{cat}" for cat in categories])
+            
             content += f"### [{post['title']}]({post['link']})\n\n"
-            content += f"*Published: {published} by {post['source']}*\n\n"
+            content += f"*Published: {published} by {post['source']} ? {category_tags}*\n\n"
             content += f"{summary}\n\n"
             content += f"[Read more...]({post['link']})\n\n"
     
@@ -213,8 +308,30 @@ def generate_news_post(blog_posts):
             if len(summary) > 200:
                 summary = summary[:200].strip() + "..."
             
+            # Identify categories
+            categories = identify_categories(post['title'], summary)
+            category_tags = ", ".join([f"#{cat}" for cat in categories])
+            
             content += f"### [{post['title']}]({post['link']})\n\n"
-            content += f"*Published: {published} by {post['source']}*\n\n"
+            content += f"*Published: {published} by {post['source']} ? {category_tags}*\n\n"
+            content += f"{summary}\n\n"
+            content += f"[Read more...]({post['link']})\n\n"
+    
+    # Add community posts
+    if community_posts:
+        content += "## Community Contributions\n\n"
+        for post in community_posts[:5]:  # Limit to 5 posts
+            published = post.get('published', 'Recently')
+            summary = post.get('summary', '').strip()
+            if len(summary) > 200:
+                summary = summary[:200].strip() + "..."
+            
+            # Identify categories
+            categories = identify_categories(post['title'], summary)
+            category_tags = ", ".join([f"#{cat}" for cat in categories])
+            
+            content += f"### [{post['title']}]({post['link']})\n\n"
+            content += f"*Published: {published} by {post['source']} ? {category_tags}*\n\n"
             content += f"{summary}\n\n"
             content += f"[Read more...]({post['link']})\n\n"
     
@@ -247,8 +364,12 @@ def generate_releases_post(releases):
                 if len(release_notes) > 200:
                     release_summary += "..."
                 
+                # Identify categories
+                categories = identify_categories(release['tag'], release_summary)
+                category_tags = ", ".join([f"#{cat}" for cat in categories])
+                
                 content += f"### [{release['tag']}]({release['url']})\n\n"
-                content += f"*Released: {release_date}*\n\n"
+                content += f"*Released: {release_date} ? {category_tags}*\n\n"
                 content += f"{release_summary}\n\n"
                 content += f"[View full release notes]({release['url']})\n\n"
     
