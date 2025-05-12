@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kubefeeds-demo
+  labels:
+    app: kubefeeds
+    component: demo
+spec:
+  selector:
+    app: kubefeeds
+    component: demo
+  ports:
+  - port: 80
+    targetPort: 80
+  type: ClusterIP
