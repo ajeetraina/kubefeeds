@@ -1,0 +1,40 @@
+# Site settings
+title: KubeFeeds
+description: >-
+  Automated Kubernetes blog posts and updates
+baseurl: ""
+url: "https://ajeetraina.github.io/kubefeeds"
+
+# Build settings
+remote_theme: "mmistakes/minimal-mistakes@4.24.0"
+plugins:
+  - jekyll-feed
+  - jekyll-include-cache
+  - jekyll-paginate
+
+# Theme settings
+minimal_mistakes_skin: "default"
+
+# Site Author
+author:
+  name: "KubeFeeds Bot"
+  bio: "Automated Kubernetes content generation and curation"
+  location: "Cloud Native"
+
+# Outputting
+paginate: 5
+paginate_path: /page:num/
+
+# Defaults
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
