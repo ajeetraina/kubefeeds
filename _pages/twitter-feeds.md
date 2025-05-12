@@ -1,6 +1,6 @@
 ---
 title: "Kubernetes Twitter Feeds"
-layout: single
+layout: categories-sidebar
 permalink: /twitter/
 excerpt: "Latest tweets from the Kubernetes community"
 header:

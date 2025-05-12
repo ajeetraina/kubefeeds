@@ -1,10 +1,11 @@
 ---
 title: "Kubernetes News"
-layout: category
+layout: categories-sidebar
 paginate: true
 taxonomy: News
 permalink: /categories/news/
 author_profile: true
+entries_layout: grid
 excerpt: "Latest news and updates from the Kubernetes ecosystem"
 header:
   overlay_color: "#0d47a1"

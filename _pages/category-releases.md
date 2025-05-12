@@ -1,10 +1,11 @@
 ---
 title: "Kubernetes Releases"
-layout: category
+layout: categories-sidebar
 paginate: true
 taxonomy: Releases
 permalink: /categories/releases/
 author_profile: true
+entries_layout: grid
 excerpt: "Latest releases of Kubernetes and ecosystem tools"
 header:
   overlay_color: "#0d47a1"
