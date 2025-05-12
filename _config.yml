@@ -2,7 +2,7 @@
 title: KubeFeeds
 subtitle: The Kubernetes Knowledge Hub
 description: >-
-  Automated Kubernetes blog posts, news, and updates
+  Automated Kubernetes content generation and curation
 url: "https://ajeetraina.github.io"
 baseurl: "/kubefeeds"
 
@@ -21,7 +21,7 @@ minimal_mistakes_skin: "default"
 
 # Site Author
 author:
-  name: "KubeFeeds Bot"
+  name: "KubeFeeds"
   bio: "Automated Kubernetes content generation and curation"
   location: "Cloud Native"
   links:
