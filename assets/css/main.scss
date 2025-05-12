@@ -1,0 +1,147 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+
+@charset "utf-8";
+
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
+@import "minimal-mistakes"; // main partials
+
+// Custom styles for KubeFeeds
+
+// Primary Kubernetes blue color
+$kubernetes-blue: #326CE5;
+$kubernetes-dark-blue: #2B5493;
+$kubernetes-light-blue: #A1C2FA;
+
+// Enhanced typography
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.65;
+}
+
+.page__title {
+  color: $kubernetes-blue;
+}
+
+.archive__item-title {
+  margin-top: 0.5em;
+  font-size: 1.4em;
+  font-weight: 600;
+}
+
+.page__content h2 {
+  border-bottom: 1px solid $kubernetes-light-blue;
+  padding-bottom: 0.5em;
+  margin-top: 2em;
+  color: $kubernetes-dark-blue;
+}
+
+.page__content h3 {
+  color: $kubernetes-dark-blue;
+  font-weight: 600;
+  margin-top: 1.5em;
+}
+
+.page__content code {
+  background-color: #f5f7f9;
+  border-radius: 4px;
+  border: 1px solid #e8ecf0;
+  padding: 2px 5px;
+}
+
+.highlight {
+  margin: 1em 0 2em 0;
+  border-radius: 4px;
+}
+
+// Enhanced buttons and navigation
+.btn--primary {
+  background-color: $kubernetes-blue;
+  &:hover {
+    background-color: $kubernetes-dark-blue;
+  }
+}
+
+.nav__items a {
+  &:hover {
+    color: $kubernetes-blue;
+  }
+}
+
+.greedy-nav .visible-links a {
+  &:hover {
+    color: $kubernetes-blue;
+  }
+  &::before {
+    background: $kubernetes-blue;
+  }
+}
+
+.toc .nav__title {
+  background-color: $kubernetes-blue;
+}
+
+.notice--info {
+  background-color: #E7F1FE;
+  border-left-color: $kubernetes-blue;
+}
+
+// Enhanced headers and footers
+.masthead {
+  background-color: #fafafa;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.page__hero--overlay {
+  padding: 4em 0;
+  .page__title {
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+  }
+}
+
+.greedy-nav {
+  background-color: transparent;
+}
+
+.greedy-nav a.site-title {
+  color: $kubernetes-blue;
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+// Cards for entries
+.entries-list {
+  .archive__item {
+    padding: 1em;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 1.5em;
+    
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+  }
+}
+
+// Category and tag styling
+.taxonomy__index {
+  margin-top: 2em;
+  
+  h1 {
+    color: $kubernetes-blue;
+  }
+  
+  .archive__item-title {
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    background-color: #f5f7f9;
+    transition: all 0.2s ease-in-out;
+    
+    &:hover {
+      background-color: $kubernetes-light-blue;
+    }
+  }
+}
