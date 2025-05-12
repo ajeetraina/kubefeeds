@@ -1,13 +1,30 @@
 main:
   - title: "Home"
     url: /
-  - title: "Categories"
+  - title: "Core"
+    url: /tags/core/
+  - title: "Security"
+    url: /tags/security/
+  - title: "Networking"
+    url: /tags/networking/
+  - title: "Storage"
+    url: /tags/storage/
+  - title: "Observability"
+    url: /tags/observability/
+  - title: "CI/CD"
+    url: /tags/cicd/
+  - title: "AI & ML"
+    url: /tags/ai/
+  - title: "More"
     url: /categories/
-  - title: "Tags"
-    url: /tags/
-  - title: "News"
-    url: /categories/news/
-  - title: "Releases"
-    url: /categories/releases/
-  - title: "About"
-    url: /about/
+    children:
+      - title: "GitOps"
+        url: /tags/gitops/
+      - title: "Multi-cluster"
+        url: /tags/multicluster/
+      - title: "News"
+        url: /categories/news/
+      - title: "Releases"
+        url: /categories/releases/
+      - title: "Community"
+        url: /categories/community/
