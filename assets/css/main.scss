@@ -30,6 +30,16 @@ body {
   margin-top: 0.5em;
   font-size: 1.4em;
   font-weight: 600;
+  
+  a {
+    text-decoration: none;
+    color: $kubernetes-dark-blue;
+    
+    &:hover {
+      color: $kubernetes-blue;
+      text-decoration: none;
+    }
+  }
 }
 
 .page__content h2 {
@@ -112,86 +122,96 @@ body {
   font-size: 1.4em;
 }
 
-// Improved Archive Items
-.archive-item {
-  padding: 1.5em;
-  border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  transition: all 0.2s ease-in-out;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  
-  &:hover {
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
-    transform: translateY(-2px);
-  }
-  
-  .archive-item-header {
-    margin-bottom: 1em;
-  }
-  
-  .archive-item-title {
-    font-size: 1.4em;
-    line-height: 1.3;
-    margin-top: 0;
-    margin-bottom: 0.5em;
+// Cards for entries
+.entries-list {
+  .archive__item {
+    padding: 1em;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.2s ease-in-out;
+    margin-bottom: 1.5em;
     
-    a {
-      color: $kubernetes-blue;
-      text-decoration: none;
-      
-      &:hover {
-        color: $kubernetes-dark-blue;
-        text-decoration: none;
-      }
-    }
-  }
-  
-  .archive-item-meta {
-    display: flex;
-    font-size: 0.85em;
-    color: #666;
-    margin-bottom: 1em;
-    flex-wrap: wrap;
-    
-    .archive-item-date, .archive-item-read-time {
-      margin-right: 1em;
-      display: flex;
-      align-items: center;
-      
-      i {
-        margin-right: 0.3em;
-        color: $kubernetes-blue;
-        opacity: 0.7;
-      }
-    }
-  }
-  
-  .archive-item-excerpt {
-    flex-grow: 1;
-    font-size: 0.95em;
-    line-height: 1.5;
-    margin-bottom: 1.2em;
-  }
-  
-  .archive-item-more {
-    margin-top: auto;
-    
-    .btn {
-      padding: 0.5em 1em;
-      font-size: 0.85em;
+    &:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
     }
   }
 }
 
-// Grid layout for archive items
+// Category and tag styling
+.taxonomy__index {
+  margin-top: 2em;
+  
+  h1 {
+    color: $kubernetes-blue;
+  }
+  
+  .archive__item-title {
+    padding: 0.5em 1em;
+    border-radius: 4px;
+    background-color: #f5f7f9;
+    transition: all 0.2s ease-in-out;
+    
+    &:hover {
+      background-color: $kubernetes-light-blue;
+    }
+  }
+}
+
+// Homepage Grid Layout
 .grid__wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   grid-gap: 1.5em;
   margin-bottom: 2em;
+  
+  .archive__item {
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    background: white;
+    transition: all 0.2s ease-in-out;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transform: translateY(-3px);
+    }
+    
+    .archive__item-teaser {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .archive__item-body {
+      padding: 1em;
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .archive__item-title {
+      margin-top: 0;
+      margin-bottom: 0.5em;
+      font-size: 1.25em;
+      line-height: 1.3;
+    }
+    
+    .archive__item-excerpt {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      font-size: 0.9em;
+      flex-grow: 1;
+    }
+    
+    .btn {
+      align-self: flex-start;
+      margin-top: auto;
+    }
+  }
 }
 
 // Feature rows
@@ -431,6 +451,76 @@ figure.highlight {
   border-radius: 6px;
 }
 
+// Fix for the news archive display
+.archive__item {
+  position: relative;
+  margin-bottom: 2em;
+}
+
+.news-grid-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 1.5em;
+  margin: 2em 0;
+}
+
+.news-card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: all 0.2s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  
+  .news-card-content {
+    padding: 1.5em;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .news-card-title {
+    font-size: 1.25em;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    line-height: 1.3;
+    
+    a {
+      color: $kubernetes-dark-blue;
+      text-decoration: none;
+      
+      &:hover {
+        color: $kubernetes-blue;
+      }
+    }
+  }
+  
+  .news-card-meta {
+    font-size: 0.85em;
+    color: #666;
+    margin-bottom: 1em;
+  }
+  
+  .news-card-excerpt {
+    font-size: 0.9em;
+    margin-bottom: 1.5em;
+    flex-grow: 1;
+  }
+  
+  .news-card-link {
+    align-self: flex-start;
+    margin-top: auto;
+  }
+}
+
 // Responsive adjustments
 @media (max-width: 768px) {
   .grid__wrapper {
@@ -453,5 +543,9 @@ figure.highlight {
   
   .sidebar-categories {
     padding: 1em;
+  }
+  
+  .news-grid-wrapper {
+    grid-template-columns: 1fr;
   }
 }
