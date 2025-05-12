@@ -10,9 +10,6 @@
   <a href="https://github.com/ajeetraina/kubefeeds/actions/workflows/jekyll-gh-pages.yml">
     <img src="https://github.com/ajeetraina/kubefeeds/actions/workflows/jekyll-gh-pages.yml/badge.svg" alt="Build Status">
   </a>
-  <a href="https://github.com/ajeetraina/kubefeeds/actions/workflows/generate-post.yml">
-    <img src="https://github.com/ajeetraina/kubefeeds/actions/workflows/generate-post.yml/badge.svg" alt="Content Generation">
-  </a>
   <a href="https://github.com/ajeetraina/kubefeeds/actions/workflows/fetch-kubernetes-news.yml">
     <img src="https://github.com/ajeetraina/kubefeeds/actions/workflows/fetch-kubernetes-news.yml/badge.svg" alt="News Fetching">
   </a>
