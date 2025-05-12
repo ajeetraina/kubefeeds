@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  jekyll:
+    image: jekyll/jekyll:latest
+    command: jekyll serve --watch --force_polling --verbose
+    ports:
+      - 4000:4000
+    volumes:
+      - .:/srv/jekyll
+  
+  content-generator:
+    image: python:3.10-slim
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: >
+      bash -c "pip install requests pyyaml && python scripts/generate_post.py"
