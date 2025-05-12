@@ -120,3 +120,130 @@ SOURCES = {
         }
     ]
 }
+
+# GitHub API token (should be stored as an environment variable in production)
+def get_github_token():
+    return os.environ.get('GITHUB_TOKEN', '')
+
+# Fetch latest releases from GitHub repositories
+def fetch_github_releases(repo, limit=5):
+    url = f"https://api.github.com/repos/{repo}/releases"
+    headers = {}
+    token = get_github_token()
+    if token:
+        headers['Authorization'] = f"token {token}"
+    
+    response = requests.get(url, headers=headers)
+    if response.status_code == 200:
+        releases = response.json()
+        return releases[:limit]
+    else:
+        print(f"Error fetching releases for {repo}: {response.status_code}")
+        return []
+
+# Fetch latest issues and PRs from GitHub repositories
+def fetch_github_activity(repo, limit=5):
+    # Get recent issues
+    issues_url = f"https://api.github.com/repos/{repo}/issues"
+    headers = {}
+    token = get_github_token()
+    if token:
+        headers['Authorization'] = f"token {token}"
+    
+    params = {
+        'state': 'all',
+        'sort': 'updated',
+        'direction': 'desc',
+        'per_page': limit
+    }
+    
+    response = requests.get(issues_url, headers=headers, params=params)
+    if response.status_code == 200:
+        return response.json()
+    else:
+        print(f"Error fetching issues for {repo}: {response.status_code}")
+        return []
+
+# Parse RSS feeds
+def fetch_rss_feed(feed_url, limit=5):
+    try:
+        import feedparser
+        feed = feedparser.parse(feed_url)
+        entries = feed.entries[:limit]
+        results = []
+        
+        for entry in entries:
+            post = {
+                'title': entry.title,
+                'link': entry.link,
+                'published': entry.get('published', entry.get('updated', '')),
+                'summary': entry.get('summary', ''),
+            }
+            results.append(post)
+        
+        return results
+    except Exception as e:
+        print(f"Error parsing feed {feed_url}: {e}")
+        return []
+
+# Scrape blog content when RSS is not available
+def scrape_blog(url, limit=5):
+    try:
+        from bs4 import BeautifulSoup
+        response = requests.get(url)
+        soup = BeautifulSoup(response.text, 'html.parser')
+        
+        # This is a generic approach; each blog might need specific selectors
+        posts = []
+        
+        # Look for common blog post patterns
+        articles = soup.find_all('article') or \
+                  soup.find_all('div', class_=re.compile(r'post|article|blog-item')) or \
+                  soup.find_all('div', class_=re.compile(r'entry')) or \
+                  soup.select('.post, .article, .blog-entry')
+        
+        for article in articles[:limit]:
+            # Try to find title
+            title_elem = article.find('h1') or article.find('h2') or article.find('h3')
+            if not title_elem:
+                continue
+            
+            title = title_elem.text.strip()
+            
+            # Try to find link
+            link_elem = title_elem.find('a') or article.find('a', class_=re.compile(r'read-more|more-link'))
+            link = ''
+            if link_elem and 'href' in link_elem.attrs:
+                link = link_elem['href']
+                # Make relative URLs absolute
+                if not link.startswith('http'):
+                    if link.startswith('/'):
+                        # Get the base URL
+                        parsed_url = requests.utils.urlparse(url)
+                        base_url = f"{parsed_url.scheme}://{parsed_url.netloc}"
+                        link = base_url + link
+                    else:
+                        link = url + ('/' if not url.endswith('/') else '') + link
+            
+            # Try to find date
+            date_elem = article.find('time') or \
+                       article.find('span', class_=re.compile(r'date|time|published')) or \
+                       article.find('div', class_=re.compile(r'date|time|published'))
+            
+            date = date_elem.text.strip() if date_elem else ''
+            
+            # Try to find summary
+            summary_elem = article.find('p') or article.find('div', class_=re.compile(r'summary|excerpt|description'))
+            summary = summary_elem.text.strip() if summary_elem else ''
+            
+            posts.append({
+                'title': title,
+                'link': link,
+                'published': date,
+                'summary': summary
+            })
+        
+        return posts
+    except Exception as e:
+        print(f"Error scraping {url}: {e}")
+        return []
