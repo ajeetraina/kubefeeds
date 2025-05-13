@@ -7,8 +7,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/ajeetraina/kubefeeds/actions/workflows/jekyll-gh-pages.yml">
-    <img src="https://github.com/ajeetraina/kubefeeds/actions/workflows/jekyll-gh-pages.yml/badge.svg" alt="Build Status">
+  <a href="https://github.com/ajeetraina/kubefeeds/actions/workflows/jekyll-deploy.yml">
+    <img src="https://github.com/ajeetraina/kubefeeds/actions/workflows/jekyll-deploy.yml/badge.svg" alt="Build Status">
   </a>
   <a href="https://github.com/ajeetraina/kubefeeds/actions/workflows/fetch-kubernetes-news.yml">
     <img src="https://github.com/ajeetraina/kubefeeds/actions/workflows/fetch-kubernetes-news.yml/badge.svg" alt="News Fetching">
@@ -51,6 +51,20 @@ KubeFeeds employs a sophisticated automated publishing pipeline:
 3. **GitHub Release Tracking**: The system monitors new releases of Kubernetes and popular ecosystem tools, keeping you informed of the latest versions
 
 4. **Automated Publishing**: Content is committed to the repository via GitHub Actions and Jekyll builds and deploys the site to GitHub Pages
+
+## ? Deployment Workflow
+
+KubeFeeds uses a streamlined GitHub Actions workflow to automatically build and deploy the site:
+
+1. **Unified Deployment**: We use a single, optimized workflow (`jekyll-deploy.yml`) that handles all build and deployment tasks
+
+2. **Automated Builds**: The site is automatically rebuilt and deployed whenever changes are pushed to the main branch
+
+3. **Manual Deployments**: You can manually trigger a deployment by going to the Actions tab and running the "Build and deploy Jekyll site to GitHub Pages" workflow
+
+4. **Caching for Speed**: Dependencies are cached for faster builds
+
+5. **GitHub Pages Integration**: The workflow uses GitHub's official Pages deployment actions for reliable publishing
 
 ## ? Visit Our Blog
 
