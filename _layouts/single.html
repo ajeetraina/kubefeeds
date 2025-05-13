@@ -1,0 +1,49 @@
+---
+layout: default
+---
+
+<div class="article-content">
+  {{ content }}
+</div>
+
+{% if page.tags %}
+<div class="article-tags">
+  {% for tag in page.tags %}
+    <a href="{{ site.baseurl }}/tags/{{ tag | slugify }}/" class="article-tag">{{ tag }}</a>
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="author-box">
+  <div class="author-avatar">
+    <i class="fas fa-user"></i>
+  </div>
+  <div class="author-info">
+    <h3 class="author-name">Kubernetes Blog Team</h3>
+    <p class="author-bio">The official blog for the Kubernetes project, featuring release announcements, technical articles, and community updates from the Kubernetes team and ecosystem.</p>
+    <div class="author-links">
+      <a href="#"><i class="fab fa-github"></i></a>
+      <a href="#"><i class="fab fa-twitter"></i></a>
+      <a href="#"><i class="fas fa-globe"></i></a>
+    </div>
+  </div>
+</div>
+
+{% if site.related_posts.size > 0 %}
+<section class="related-articles">
+  <h2 class="section-header">Related Articles</h2>
+  <div class="related-grid">
+    {% for post in site.related_posts limit:3 %}
+    <article class="related-card">
+      <div class="related-card-content">
+        <h3 class="related-card-title">
+          <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+        </h3>
+        <div class="related-card-meta">{{ post.date | date: "%B %d, %Y" }} ? {{ post.categories.first }}</div>
+        <a href="{{ site.baseurl }}{{ post.url }}" class="related-card-link">Read more <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
