@@ -1,26 +1,20 @@
-name: Build and deploy Jekyll site to GitHub Pages
+# This file is deprecated - see jekyll-deploy.yml
+name: [DEPRECATED] Jekyll to GitHub Pages
 
 on:
-  push:
-    branches:
-      - main
-  schedule:
-    - cron: '0 */12 * * *'  # Run every 12 hours
+  # This workflow is kept for reference only and disabled
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'This workflow is deprecated. Use jekyll-deploy.yml instead.'
+        required: true
+        default: 'no'
 
 jobs:
-  jekyll:
+  notice:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-
-      - uses: actions/cache@v3
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-gems-${{ hashFiles('**/Gemfile.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-gems-
-
-      - uses: helaili/jekyll-action@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          jekyll_build_options: --verbose
+      - name: Deprecation Notice
+        run: |
+          echo "This workflow is deprecated. Please use jekyll-deploy.yml instead."
+          exit 1
